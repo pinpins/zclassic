@@ -103,9 +103,9 @@ public:
         consensus.vUpgrades[Consensus::UPGRADE_TESTDUMMY].nActivationHeight =
             Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
         consensus.vUpgrades[Consensus::UPGRADE_OVERWINTER].nProtocolVersion = 170005;
-        consensus.vUpgrades[Consensus::UPGRADE_OVERWINTER].nActivationHeight = 500000;
+        consensus.vUpgrades[Consensus::UPGRADE_OVERWINTER].nActivationHeight = 476969;
         consensus.vUpgrades[Consensus::UPGRADE_SAPLING].nProtocolVersion = 170007;
-        consensus.vUpgrades[Consensus::UPGRADE_SAPLING].nActivationHeight = 500000;
+        consensus.vUpgrades[Consensus::UPGRADE_SAPLING].nActivationHeight = 476969;
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000000721bfb84aedeb");
@@ -137,21 +137,8 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
 
-        vSeeds.push_back(CDNSSeedData("zclassic.org", "dnsseed.zclassic.org")); // zclassic
-        vSeeds.push_back(CDNSSeedData("zclassic-ce.org", "dnsseed.zclassic-ce.org")); // Zclassic Community
-        vSeeds.push_back(CDNSSeedData("zclassic.org", "na1.zclassic.org")); // zclassic
-        vSeeds.push_back(CDNSSeedData("zclassic.org", "na2.zclassic.org")); // zclassic
-        vSeeds.push_back(CDNSSeedData("zclassic.org", "na3.zclassic.org")); // zclassic
-        vSeeds.push_back(CDNSSeedData("zclassic.org", "eu1.zclassic.org")); // zclassic
-        vSeeds.push_back(CDNSSeedData("zclassic.org", "eu2.zclassic.org")); // zclassic
-        vSeeds.push_back(CDNSSeedData("zclassic.org", "eu3.zclassic.org")); // zclassic
-        vSeeds.push_back(CDNSSeedData("zclassic.org", "as1.zclassic.org")); // zclassic
-        vSeeds.push_back(CDNSSeedData("zclassic.org", "as2.zclassic.org")); // zclassic
-        vSeeds.push_back(CDNSSeedData("zclassic.org", "as3.zclassic.org")); // zclassic
-        vSeeds.push_back(CDNSSeedData("zclassic-ce.org", "na.zclassic-ce.org")); // Community
-        vSeeds.push_back(CDNSSeedData("zclassic-ce.org", "eu.zclassic-ce.org")); // Community
-        vSeeds.push_back(CDNSSeedData("zclassic-ce.org", "as.zclassic-ce.org")); // Community
-        vSeeds.push_back(CDNSSeedData("zclassic-ce.org", "sa.zclassic-ce.org")); // Community
+        vSeeds.push_back(CDNSSeedData("zclcore.org", "dnsseed.zclcore.org"));
+        vSeeds.push_back(CDNSSeedData("zcl.community", "dnsseed.zcl.community"));
 
         vSeeds.push_back(CDNSSeedData("chains.run", "seed.zcl.chains.run")); //rizkiwicaksono/bitcoin-seeder
 
@@ -323,9 +310,8 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
 
-        vSeeds.push_back(CDNSSeedData("zclassic.org", "dnsseed.testnet.zclassic.org")); // Zclassic
-        vSeeds.push_back(CDNSSeedData("zclassic-ce.org", "dnsseed.testnet.zclassic-ce.org")); // Zclassic Community
-        vSeeds.push_back(CDNSSeedData("zclassic-ce.org", "eu.testnet.zclassic-ce.org")); // Zclassic Community
+        vSeeds.push_back(CDNSSeedData("zclcore.org", "dnsseed.testnet.zclcore.org"));
+        vSeeds.push_back(CDNSSeedData("zcl.community", "dnsseed.testnet.zcl.community"));
 
         // guarantees the first 2 characters, when base58 encoded, are "tm"
         base58Prefixes[PUBKEY_ADDRESS]     = {0x1D,0x25};
