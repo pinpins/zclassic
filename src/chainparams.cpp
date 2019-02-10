@@ -117,7 +117,7 @@ public:
         pchMessageStart[1] = 0xe9;
         pchMessageStart[2] = 0x27;
         pchMessageStart[3] = 0x64;
-        vAlertPubKey = ParseHex("04f2cd746e629ffd320a81287474c98c2ad15d15b0a210b0144edcd8f3e1301c6311fd751fa34ba17d88090374cfec7cd9aaca55a5a0c4456511acc01b922005de");
+        vAlertPubKey = ParseHex("04a60129fc1915c0e35d92328cbc27cba5dc367dd0eaf7059616aa455afc3f7622161572e1197af352baff0d6563bb75316d095241dd94f809d7f6eefb49dbdff4");
         nDefaultPort = 8033;
         nPruneAfterHeight = 100000;
         const size_t N = 200, K = 9;
@@ -290,7 +290,7 @@ public:
         pchMessageStart[1] = 0x1a;
         pchMessageStart[2] = 0xf9;
         pchMessageStart[3] = 0xbf;
-        vAlertPubKey = ParseHex("048679fb891b15d0cada9692047fd0ae26ad8bfb83fabddbb50334ee5bc0683294deb410be20513c5af6e7b9cec717ade82b27080ee6ef9a245c36a795ab044bb3");
+        vAlertPubKey = ParseHex("044d71d7faa4e6d77c08d3a1e8c27fafc922de9ec8c91e809bb0c4788058301ec18a68d9fe42b6ec0467bb7ca7f7ecaecbc05c0b6437d9de21a59232fd917a8803");
         nDefaultPort = 18033;
         nPruneAfterHeight = 1000;
         const size_t N = 200, K = 9;
@@ -413,7 +413,7 @@ public:
         pchMessageStart[1] = 0xe8;
         pchMessageStart[2] = 0x3f;
         pchMessageStart[3] = 0x5f;
-        nDefaultPort = 18344;
+        nDefaultPort = 18033;
         nPruneAfterHeight = 1000;
         const size_t N = 48, K = 5;
         BOOST_STATIC_ASSERT(equihash_parameters_acceptable(N, K));
