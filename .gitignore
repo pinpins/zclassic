@@ -1,11 +1,17 @@
 *.tar.gz
 *.deb
 *.exe
+.nfs*
+
 src/bitcoin
 src/zcashd
 src/zcash-cli
 src/zcash-gtest
 src/zcash-tx
+src/zclassicd
+src/zclassic-cli
+src/zclassic-gtest
+src/zclassic-tx
 src/test/test_bitcoin
 
 *zcashTest.pk
