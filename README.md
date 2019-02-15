@@ -1,4 +1,4 @@
-ZClassic 2.0.3-rc1
+ZClassic 2.0.3
 <img align="right" width="120" height="80" src="doc/imgs/logo.png">
 ===========
 
@@ -68,7 +68,7 @@ sudo apt-get install \
 # fetch key
 ./zcutil/fetch-params.sh
 # Run
-./src/zcashd
+./src/zclassicd
 ```	
 
 Currently only Linux is officially supported.
