@@ -64,7 +64,7 @@ sudo apt-get install \
  Install
 ```{r, engine='bash'}
 # Build
-./zcutil/build.sh -j$(nproc)	./zcutil/build.sh -j$(nproc)
+./zcutil/build.sh -j$(nproc)	
 # fetch key
 ./zcutil/fetch-params.sh
 # Run
