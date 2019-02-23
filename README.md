@@ -17,7 +17,7 @@ connection, the synchronization process could take a day or more once the
 blockchain has reached a significant size.
 
 <p align="center">
-  <img src="doc/imgs/zcashd_screen.gif" height="500">
+  <img src="doc/imgs/zclassic.png" height="500">
 </p>
 
 #### :lock: Security Warnings
@@ -64,12 +64,12 @@ zlib1g-dev wget curl bsdmainutils automake
  Install
 ```{r, engine='bash'}
 # Build
-./zcutil/build.sh -j$(nproc)	
+./zcutil/build.sh -j$(nproc)
 # fetch key
 ./zcutil/fetch-params.sh
 # Run
 ./src/zclassicd
-```	
+```
 
 Currently only Linux is officially supported.
 
