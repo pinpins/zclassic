@@ -82,7 +82,7 @@ public:
     CMainParams() {
         strNetworkID = "main";
         strCurrencyUnits = "ZCL";
-        bip44CoinType = 133; // As registered in https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+        bip44CoinType = 147; // As registered in https://github.com/satoshilabs/slips/blob/master/slip-0044.md
         consensus.fCoinbaseMustBeProtected = true;
         consensus.nSubsidySlowStartInterval = 2;
         consensus.nSubsidyHalvingInterval = 840000;
