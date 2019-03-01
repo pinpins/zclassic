@@ -137,7 +137,7 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
 
-        vSeeds.push_back(CDNSSeedData("zclcore.org", "dnsseed.zclcore.org"));
+        vSeeds.push_back(CDNSSeedData("zclcore.com", "dnsseed.zclcore.com"));
         vSeeds.push_back(CDNSSeedData("zcl.community", "dnsseed.zcl.community"));
 
         vSeeds.push_back(CDNSSeedData("chains.run", "seed.zcl.chains.run")); //rizkiwicaksono/bitcoin-seeder
@@ -310,7 +310,7 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
 
-        vSeeds.push_back(CDNSSeedData("zclcore.org", "dnsseed.testnet.zclcore.org"));
+        vSeeds.push_back(CDNSSeedData("zclcore.com", "dnsseed.testnet.zclcore.com"));
         vSeeds.push_back(CDNSSeedData("zcl.community", "dnsseed.testnet.zcl.community"));
 
         // guarantees the first 2 characters, when base58 encoded, are "tm"
