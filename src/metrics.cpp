@@ -219,12 +219,12 @@ int printStats(bool mining)
     if (IsInitialBlockDownload()) {
         int netheight = EstimateNetHeight(height, tipmediantime, Params());
         int downloadPercent = height * 100 / netheight;
-        std::cout << "     " << _("Downloading blocks") << " | " << height << " / ~" << netheight << " (" << downloadPercent << "%)" << std::endl;
+        std::cout << "     " << _("Downloading blocks") << " | " << height << " / ~" << netheight << " (" << downloadPercent << "%)           " << std::endl;
     } else {
-        std::cout << "           " << _("Block height") << " | " << height << std::endl;
+        std::cout << "           " << _("Block height") << " | " << height << "                      " << std::endl;
     }
-    std::cout << "            " << _("Connections") << " | " << connections << std::endl;
-    std::cout << "  " << _("Network solution rate") << " | " << netsolps << " Sol/s" << std::endl;
+    std::cout << "            " << _("Connections") << " | " << connections << "    " << std::endl;
+    std::cout << "  " << _("Network solution rate") << " | " << netsolps << " Sol/s    " << std::endl;
     if (mining && miningTimer.running()) {
         std::cout << "    " << _("Local solution rate") << " | " << strprintf("%.4f Sol/s", localsolps) << std::endl;
         lines++;
@@ -331,7 +331,6 @@ int printMetrics(size_t cols, bool mining)
                         chainActive.Contains(mapBlockIndex[hash])) {
                     int height = mapBlockIndex[hash]->nHeight;
                     CAmount subsidy = GetBlockSubsidy(height, consensusParams);
-
                     if (std::max(0, COINBASE_MATURITY - (tipHeight - height)) > 0) {
                         immature += subsidy;
                     } else {
@@ -413,6 +412,14 @@ int printInitMessage()
 }
 
 #ifdef WIN32
+void setCursorPosition(int x, int y)
+{
+    static const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    std::cout.flush();
+    COORD coord = { (SHORT)x, (SHORT)y };
+    SetConsoleCursorPosition(hOut, coord);
+}
+
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
 
 bool enableVTMode()
@@ -441,6 +448,10 @@ void ThreadShowMetricsScreen()
     // Make this thread recognisable as the metrics screen thread
     RenameThread("zcash-metrics-screen");
 
+#ifdef WIN32
+    bool clearedAfterLoaded = false;
+#endif
+
     // Determine whether we should render a persistent UI or rolling metrics
     bool isTTY = isatty(STDOUT_FILENO);
     bool isScreen = GetBoolArg("-metricsui", isTTY);
@@ -452,7 +463,11 @@ void ThreadShowMetricsScreen()
 #endif
 
         // Clear screen
+#ifdef WIN32
+        setCursorPosition(0, 0);
+#else
         std::cout << "\e[2J";
+#endif
 
         // Print art
         std::cout << METRICS_ART << std::endl;
@@ -461,10 +476,6 @@ void ThreadShowMetricsScreen()
         // Thank you text
         std::cout << _("Thank you for running a ZClassic node!") << std::endl;
         std::cout << _("You're helping to strengthen the network and contributing to a social good :)") << std::endl;
-
-        // Privacy notice text
-        std::cout << PrivacyInfo();
-        std::cout << std::endl;
     }
 
     while (true) {
@@ -489,8 +500,28 @@ void ThreadShowMetricsScreen()
         }
 
         if (isScreen) {
+#ifdef WIN32
+        setCursorPosition(0, 12);
+        if (loaded)
+        {
+           if (!clearedAfterLoaded)
+           {
+              std::cout << std::string(cols, ' ');
+              std::cout << std::string(cols, ' ');
+              std::cout << std::string(cols, ' ');
+              std::cout << std::string(cols, ' ');
+              std::cout << std::string(cols, ' ');
+              std::cout << std::string(cols, ' ');
+              std::cout << std::string(cols, ' ');
+              std::cout << std::string(cols, ' ');
+              setCursorPosition(0, 12);
+           }
+           clearedAfterLoaded=true;
+        }
+#else
             // Erase below current position
             std::cout << "\e[J";
+#endif
         }
 
         // Miner status
@@ -512,7 +543,7 @@ void ThreadShowMetricsScreen()
             // Explain how to exit
             std::cout << "[";
 #ifdef WIN32
-            std::cout << _("'zclassic-cli.exe stop' to exit");
+            std::cout << _("'zcash-cli.exe stop' to exit");
 #else
             std::cout << _("Press Ctrl+C to exit");
 #endif
@@ -530,7 +561,11 @@ void ThreadShowMetricsScreen()
 
         if (isScreen) {
             // Return to the top of the updating section
+#ifdef WIN32
+            setCursorPosition(0, 12);
+#else
             std::cout << "\e[" << lines << "A";
+#endif
         }
     }
 }
