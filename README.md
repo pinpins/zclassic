@@ -1,4 +1,4 @@
-ZClassic 2.0.4
+ZClassic 2.0.5
 <img align="right" width="120" height="80" src="doc/imgs/logo.png">
 ===========
 
@@ -36,22 +36,17 @@ height.
 
 ## Getting Started
 
-Please see our [user guide](https://zcash.readthedocs.io/en/latest/rtd_pages/rtd_docs/user_guide.html) for joining the main ZClassic network.
-
-### Need Help?
-
-* :blue_book: See the documentation at the [ReadtheDocs](https://zcash.readthedocs.io)
-  for help and more information.
-* :incoming_envelope: Ask for help on the [Zcash](https://forum.z.cash/) forum.
-* :mag: Chat with our support community on [Rocket.Chat](https://chat.zcashcommunity.com/channel/user-support)
-
-Participation in the ZClassic project is subject to a
-[Code of Conduct](code_of_conduct.md).
-
 ### Building
 
 Build ZClassic along with most dependencies from source by running:
 
+
+Clone the repository
+```{r, engine='bash'}
+git clone https://github.com/ZclassicCommunity/zclassic.git
+cd zclassic
+git checkout v2.0.5
+```
 
  Get dependencies
 ```{r, engine='bash'}
@@ -67,7 +62,17 @@ zlib1g-dev wget curl bsdmainutils automake
 ./zcutil/build.sh -j$(nproc)
 # fetch key
 ./zcutil/fetch-params.sh
-# Run
+```
+
+Before running the ZClassic daemon, you need to create a configuration file `zclassic.conf` in `~/.zclassic`. Here's an example.
+```
+gen=0
+equihashsolver=tromp
+listenonion=0
+```
+
+Run
+```{r, engine='bash'}
 ./src/zclassicd
 ```
 
