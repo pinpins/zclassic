@@ -45,7 +45,7 @@ Clone the repository
 ```{r, engine='bash'}
 git clone https://github.com/ZclassicCommunity/zclassic.git
 cd zclassic
-git checkout v2.0.5-1
+git checkout v2.0.5-2
 ```
 
  Get dependencies
