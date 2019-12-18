@@ -7,6 +7,7 @@
 #define BITCOIN_WALLET_WALLET_H
 
 #include "amount.h"
+#include "asyncrpcoperation.h"
 #include "coins.h"
 #include "key.h"
 #include "keystore.h"
@@ -372,7 +373,7 @@ public:
         READWRITE(nIndex);
     }
 
-    int SetMerkleBranch(const CBlock& block);
+    void SetMerkleBranch(const CBlock& block);
 
 
     /**
