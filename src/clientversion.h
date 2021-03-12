@@ -1,5 +1,6 @@
 // Copyright (c) 2009-2014 The Bitcoin Core developers
 // Copyright (c) 2016-2019 The Zcash developers
+// Copyright (c) 2017-2021 The SoloPool.org Team
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -18,7 +19,7 @@
 #define CLIENT_VERSION_MAJOR 2
 #define CLIENT_VERSION_MINOR 1
 #define CLIENT_VERSION_REVISION 1
-#define CLIENT_VERSION_BUILD 52
+#define CLIENT_VERSION_BUILD 53
 
 //! Set to true for release, false for prerelease or test build
 #define CLIENT_VERSION_IS_RELEASE true
@@ -27,7 +28,7 @@
  * Copyright year (2009-this)
  * Todo: update this when changing our copyright comments in the source
  */
-#define COPYRIGHT_YEAR 2019
+#define COPYRIGHT_YEAR 2021
 
 #endif //HAVE_CONFIG_H
 
