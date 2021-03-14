@@ -1,5 +1,5 @@
 
-ZClassic 2.1.1-2
+ZClassic 2.1.1-3
 
 
 ## What is ZClassic?
@@ -44,7 +44,7 @@ Clone the repository
 ```{r, engine='bash'}
 git clone https://github.com/ZclassicCommunity/zclassic.git
 cd zclassic
-git checkout v2.1.1-2
+git checkout v2.1.1-3
 ```
 
 Get dependencies
