@@ -44,7 +44,7 @@ Clone the repository
 ```{r, engine='bash'}
 git clone https://github.com/ZclassicCommunity/zclassic.git
 cd zclassic
-git checkout v2.1.1-4
+git checkout v2.1.1-5
 ```
 
 Get dependencies
@@ -61,8 +61,10 @@ Install
 ```{r, engine='bash'}
 # Build
 ./zcutil/build.sh -j$(nproc)
-# fetch key
+# Fetch key
 ./zcutil/fetch-params.sh
+# If above fails, ry fetching keys from community server:
+./zcutil/zsync sv
 ```
 
 Before running the ZClassic daemon, you need to create a configuration file `zclassic.conf` in `~/.zclassic`. Here's an example.
@@ -79,7 +81,7 @@ addnode=116.202.13.16:8033
 Run
 
 ```{r, engine='bash'}
-./src/zclassicd
+LC_ALL=C nohup ./src/zclassicd
 ```
 
 Currently only Linux is officially supported.
