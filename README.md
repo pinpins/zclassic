@@ -59,11 +59,15 @@ zlib1g-dev wget curl bsdmainutils automake
 Install
 
 ```{r, engine='bash'}
-# Build
+# Build from source:
 ./zcutil/build.sh -j$(nproc)
-# Fetch key
+
+# Install as a Debian/Ubuntu package:
+dpkg -i zclassic-2.1.1-5-amd64.deb
+
+# Fetch keys
 ./zcutil/fetch-params.sh
-# If above fails, ry fetching keys from community server:
+# If above fails, try fetching keys from community server:
 ./zcutil/zsync sv
 ```
 
