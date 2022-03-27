@@ -68,7 +68,7 @@ dpkg -i zclassic-2.1.1-5-amd64.deb
 # Fetch keys
 ./zcutil/fetch-params.sh
 # If above fails, try fetching keys from community server:
-./zcutil/zsync sv
+./zcutil/zsync.sh sv
 ```
 
 Before running the ZClassic daemon, you need to create a configuration file `zclassic.conf` in `~/.zclassic`. Here's an example.
@@ -85,7 +85,7 @@ addnode=116.202.13.16:8033
 Run
 
 ```{r, engine='bash'}
-LC_ALL=C nohup ./src/zclassicd
+LC_ALL=C ./src/zclassicd
 ```
 
 Currently only Linux is officially supported.
