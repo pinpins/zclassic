@@ -63,7 +63,7 @@ Install
 ./zcutil/build.sh -j$(nproc)
 
 # Install as a Debian/Ubuntu package:
-dpkg -i zclassic-2.1.1-5-amd64.deb
+dpkg -i zclassic-2.1.1-6-amd64.deb
 
 # Fetch keys
 ./zcutil/fetch-params.sh
