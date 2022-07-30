@@ -1,5 +1,5 @@
 
-ZClassic 2.1.1-4
+ZClassic 2.1.1-6
 
 
 ## What is ZClassic?
@@ -44,7 +44,7 @@ Clone the repository
 ```{r, engine='bash'}
 git clone https://github.com/ZclassicCommunity/zclassic.git
 cd zclassic
-git checkout v2.1.1-5
+git checkout v2.1.1-6
 ```
 
 Get dependencies
@@ -63,7 +63,7 @@ Install
 ./zcutil/build.sh -j$(nproc)
 
 # Install as a Debian/Ubuntu package:
-dpkg -i zclassic-2.1.1-5-amd64.deb
+dpkg -i zclassic-2.1.1-6-amd64.deb
 
 # Fetch keys
 ./zcutil/fetch-params.sh
