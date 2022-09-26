@@ -1,5 +1,5 @@
 
-ZClassic 2.1.1-6
+ZClassic 2.1.1-7
 
 
 ## What is ZClassic?
@@ -44,12 +44,23 @@ Clone the repository
 ```{r, engine='bash'}
 git clone https://github.com/ZclassicCommunity/zclassic.git
 cd zclassic
-git checkout v2.1.1-6
+git checkout v2.1.1-7
 ```
 
 Get dependencies
 
 ```{r, engine='bash'}
+# Ubuntu 22.04
+
+sudo apt-get install \
+ build-essential pkg-config libc6-dev m4 g++-multilib \
+ autoconf libtool ncurses-dev unzip git python3 python3-zmq \
+ zlib1g-dev curl bsdmainutils automake libtinfo5
+```
+
+```{r, engine='bash'}
+# Ubuntu 18.04
+
 sudo apt-get install \
 build-essential pkg-config libc6-dev m4 g++-multilib \
 autoconf libtool ncurses-dev unzip git python python-zmq \
