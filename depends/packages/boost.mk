@@ -1,8 +1,8 @@
 package=boost
-$(package)_version=1_69_0
-$(package)_download_path=https://boostorg.jfrog.io/artifactory/main/release/1.69.0/source
+$(package)_version=1_80_0
+$(package)_download_path=https://boostorg.jfrog.io/artifactory/main/release/1.80.0/source
 $(package)_file_name=$(package)_$($(package)_version).tar.bz2
-$(package)_sha256_hash=8f32d4617390d1c2d16f26a27ab60d97807b35440d45891fa340fc2648b04406
+$(package)_sha256_hash=1e19565d82e43bc59209a168f5ac899d3ba471d55c7610c677d4ccf2c9c500c0
 
 define $(package)_set_vars
 $(package)_config_opts_release=variant=release
