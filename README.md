@@ -1,7 +1,30 @@
 
 ZClassic 2.1.1-7
 
+## Super Fast Install (Linux)
+```{r, engine='bash'}
+cd
 
+# Download 1.7 M Block Mirror (6.5 GB)
+wget https://chainbackup.s3.us-east-2.amazonaws.com/zcl-bak.tar.gz
+
+# extract .zclassic directory
+tar xfvz zcl-bak.tar.gz
+
+mkdir zclassic-bins
+cd zclassic-bins
+
+# Get latest binary
+wget https://github.com/ZclassicCommunity/zclassic/releases/download/v2.1.1-7/zclassic-v2.1.1-7-x86_64-linux.tar.gz
+
+
+# extract binaries
+tar xfvz zclassic-v2.1.1-7-x86_64-linux.tar.gz 
+
+# run binary
+./zclassicd 
+
+```
 ## What is ZClassic?
 
 [ZClassic](https://zclassic.org/) is an implementation of the "Zerocash" protocol.
