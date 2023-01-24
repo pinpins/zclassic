@@ -1,5 +1,5 @@
 
-ZClassic 2.1.1-7
+ZClassic 2.1.1-8
 
 ## Super Fast Install (Linux)
 ```{r, engine='bash'}
@@ -15,11 +15,11 @@ mkdir zclassic-bins
 cd zclassic-bins
 
 # Get latest binary
-wget https://github.com/ZclassicCommunity/zclassic/releases/download/v2.1.1-7/zclassic-v2.1.1-7-x86_64-linux.tar.gz
+wget https://github.com/ZclassicCommunity/zclassic/releases/download/v2.1.1-8/zclassic-v2.1.1-8-x86_64-linux.tar.gz
 
 
 # extract binaries
-tar xfvz zclassic-v2.1.1-7-x86_64-linux.tar.gz 
+tar xfvz zclassic-v2.1.1-8-x86_64-linux.tar.gz 
 
 # run binary
 ./zclassicd 
@@ -67,7 +67,7 @@ Clone the repository
 ```{r, engine='bash'}
 git clone https://github.com/ZclassicCommunity/zclassic.git
 cd zclassic
-git checkout v2.1.1-7
+git checkout v2.1.1-8
 ```
 
 Get dependencies
@@ -97,7 +97,7 @@ Install
 ./zcutil/build.sh -j$(nproc)
 
 # Install as a Debian/Ubuntu package:
-dpkg -i zclassic-2.1.1-6-amd64.deb
+dpkg -i zclassic-2.1.1-8-amd64.deb
 
 # Fetch keys
 ./zcutil/fetch-params.sh
