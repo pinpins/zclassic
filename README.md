@@ -1,6 +1,16 @@
 
 ZClassic 2.1.1-8
 
+## Difficulties With Initial Sync
+NOTE:
+
+Zclassic currently a bunch of times whey trying an initial sync from scratch.  
+You need to keep restarting the process until it cathes up enough with the blockchain.
+
+A faster way for quick sync is below, but keep in mind it does not keep a FULL INDEX (txindex=1)
+
+This should all be resolved in an upcomming hard fork with the latest "CHEESEBURGER" code
+
 ## Super Fast Install (Linux)
 ```{r, engine='bash'}
 cd
