@@ -937,6 +937,9 @@ bool ContextualCheckTransaction(
         const int dosLevel,
         bool (*isInitBlockDownload)())
 {
+    if (isInitBlockDownload()) {
+        return true;
+    }
     bool overwinterActive = Params().GetConsensus().NetworkUpgradeActive(nHeight, Consensus::UPGRADE_OVERWINTER);
     bool saplingActive = Params().GetConsensus().NetworkUpgradeActive(nHeight, Consensus::UPGRADE_SAPLING);
     bool isSprout = !overwinterActive;
