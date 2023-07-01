@@ -28,7 +28,7 @@ BITCOIN_INCLUDES += -I$(srcdir)/snark
 BITCOIN_INCLUDES += -I$(srcdir)/snark/libsnark
 BITCOIN_INCLUDES += -I$(srcdir)/univalue/include
 
-LIBBITCOIN_SERVER=libbitcoin_server.a
+LIBBITCOIN_SERVER=libbitcoin_server.a -lcurl
 LIBBITCOIN_COMMON=libbitcoin_common.a
 LIBBITCOIN_CLI=libbitcoin_cli.a
 LIBBITCOIN_UTIL=libbitcoin_util.a
@@ -267,6 +267,7 @@ libbitcoin_server_a_SOURCES = \
   policy/fees.cpp \
   pow.cpp \
   rest.cpp \
+  sha256.cpp \
   rpc/blockchain.cpp \
   rpc/mining.cpp \
   rpc/misc.cpp \
