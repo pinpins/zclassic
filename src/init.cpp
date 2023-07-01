@@ -727,6 +727,14 @@ bool Download(std::string url, std::string filename, std::string hash)
 
         boost::filesystem::path filename_path = boost::filesystem::path(filename);
 
+        // if file is already downloaded with correct hash, skip download
+        if (boost::filesystem::exists(filename_path)){
+            if(check_file_hash(filename, hash)){
+                initialBlockchainBytesDownloaded += boost::filesystem::file_size(filename_path);                
+                return true;
+            }
+        }
+        
         boost::filesystem::remove_all(filename_path);
 
         curl_global_init(CURL_GLOBAL_ALL);
