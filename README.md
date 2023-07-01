@@ -1,35 +1,64 @@
 
 ZClassic 2.1.1-8
 
-## Difficulties With Initial Sync
-NOTE:
+## Getting Started
 
-Zclassic currently a bunch of times whey trying an initial sync from scratch.  
-You need to keep restarting the process until it cathes up enough with the blockchain.
+### Building
 
-A faster way for quick sync is below, but keep in mind it does not keep a FULL INDEX (txindex=1)
+Build ZClassic along with most dependencies from source by running:
 
-This should all be resolved in an upcomming hard fork with the latest "CHEESEBURGER" code
+Clone the repository
 
-## Super Fast Install (Linux)
 ```{r, engine='bash'}
-cd
+git clone https://github.com/ZclassicCommunity/zclassic.git
+cd zclassic
+git checkout v2.1.1-8
+```
 
-# Download 1.7 M Block Mirror (6.5 GB)
-wget https://chainbackup.s3.us-east-2.amazonaws.com/zcl-bak.tar.gz
+Get dependencies
 
-# extract .zclassic directory
-tar xfvz zcl-bak.tar.gz
+```{r, engine='bash'}
+# Ubuntu 22.04
 
-mkdir zclassic-bins
-cd zclassic-bins
+sudo apt-get install \
+ build-essential pkg-config libc6-dev m4 g++-multilib \
+ autoconf libtool ncurses-dev unzip git python3 python3-zmq \
+ zlib1g-dev curl bsdmainutils automake libtinfo5 libcurl4-gnutls-dev
+```
 
-# Get latest binary
-wget https://github.com/ZclassicCommunity/zclassic/releases/download/v2.1.1-8/zclassic-v2.1.1-8-x86_64-linux.tar.gz
+```{r, engine='bash'}
+# Ubuntu 18.04
+
+sudo apt-get install \
+build-essential pkg-config libc6-dev m4 g++-multilib \
+autoconf libtool ncurses-dev unzip git python python-zmq \
+zlib1g-dev wget curl bsdmainutils automake
+```
+
+Install
+
+```{r, engine='bash'}
+# Build from source:
+./zcutil/build.sh -j$(nproc)
+# strip binary for production use
+strip ./src/zclassicd
+
+# run binary
+./src/zclassicd
 
 
-# extract binaries
-tar xfvz zclassic-v2.1.1-8-x86_64-linux.tar.gz 
+Before running the ZClassic daemon, you need to create a configuration file `zclassic.conf` in `~/.zclassic`. Here's an example.
+
+```
+txindex=1
+gen=0
+```
+
+Run
+
+```{r, engine='bash'}
+LC_ALL=C ./src/zclassicd
+```
 
 # run binary
 ./zclassicd 
@@ -66,71 +95,6 @@ is an automatic deprecation shutdown feature which will halt the node some
 time after this 16 week time period. The automatic feature is based on block
 height.
 
-## Getting Started
-
-### Building
-
-Build ZClassic along with most dependencies from source by running:
-
-Clone the repository
-
-```{r, engine='bash'}
-git clone https://github.com/ZclassicCommunity/zclassic.git
-cd zclassic
-git checkout v2.1.1-8
-```
-
-Get dependencies
-
-```{r, engine='bash'}
-# Ubuntu 22.04
-
-sudo apt-get install \
- build-essential pkg-config libc6-dev m4 g++-multilib \
- autoconf libtool ncurses-dev unzip git python3 python3-zmq \
- zlib1g-dev curl bsdmainutils automake libtinfo5
-```
-
-```{r, engine='bash'}
-# Ubuntu 18.04
-
-sudo apt-get install \
-build-essential pkg-config libc6-dev m4 g++-multilib \
-autoconf libtool ncurses-dev unzip git python python-zmq \
-zlib1g-dev wget curl bsdmainutils automake
-```
-
-Install
-
-```{r, engine='bash'}
-# Build from source:
-./zcutil/build.sh -j$(nproc)
-
-# Install as a Debian/Ubuntu package:
-dpkg -i zclassic-2.1.1-8-amd64.deb
-
-# Fetch keys
-./zcutil/fetch-params.sh
-# If above fails, try fetching keys from community server:
-./zcutil/zsync.sh sv
-```
-
-Before running the ZClassic daemon, you need to create a configuration file `zclassic.conf` in `~/.zclassic`. Here's an example.
-
-```
-gen=0
-equihashsolver=tromp
-listenonion=0
-addnode=54.37.81.148:8033
-addnode=67.183.29.123:8033
-addnode=116.202.13.16:8033
-```
-
-Run
-
-```{r, engine='bash'}
-LC_ALL=C ./src/zclassicd
-```
 
 Currently only Linux is officially supported.
 
