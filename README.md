@@ -45,11 +45,12 @@ strip ./src/zclassicd
 
 # run binary
 ./src/zclassicd
+```
 
 
 Before running the ZClassic daemon, you need to create a configuration file `zclassic.conf` in `~/.zclassic`. Here's an example.
 
-```
+```{r, engine='bash'}
 txindex=1
 gen=0
 ```
@@ -58,7 +59,6 @@ Run
 
 ```{r, engine='bash'}
 LC_ALL=C ./src/zclassicd
-```
 
 # run binary
 ./zclassicd 
