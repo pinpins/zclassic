@@ -719,6 +719,11 @@ static bool check_file_hash(const std::string& path, const std::string& hash)
     return true;
 }
 
+size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream)
+{
+    size_t written = fwrite(ptr, size, nmemb, stream);
+    return written;
+}
 
 bool Download(std::string url, std::string filename, std::string hash)
 {
@@ -751,13 +756,15 @@ bool Download(std::string url, std::string filename, std::string hash)
         curl_easy_setopt(curl_handle, CURLOPT_URL, url.c_str());
       
         /* Switch on full protocol/debug output while testing */ 
-        // curl_easy_setopt(curl_handle, CURLOPT_VERBOSE, 1L);
-      
+        curl_easy_setopt(curl_handle, CURLOPT_VERBOSE, 0L);
+
+        curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "mozilla/4.0 (compatible; zclassic/1.0)");
+
         /* disable progress meter, set to 0L to enable and disable debug output */ 
         curl_easy_setopt(curl_handle, CURLOPT_NOPROGRESS, 1L);
       
         /* send all data to this function  */ 
-        curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, NULL);
+        curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, write_data);
       
         curl_easy_setopt(curl_handle, CURLOPT_FOLLOWLOCATION, 1L);
       
@@ -826,7 +833,7 @@ bool BlockIndexDownload(std::string url, std::string filename, std::string hash)
 
 
     tmp_index_file = tmp_index_blocks_dir / filename;
-    if (!Download(url, tmp_index_file.c_str(), hash)){
+    if (!Download(url, tmp_index_file.string(), hash)){
         return false;
     }
     return true;
@@ -841,7 +848,7 @@ bool BlockDownload(std::string url, std::string filename, std::string hash)
     boost::filesystem::path tmp_blocks_file;
 
     tmp_blocks_file = tmp_blocks_dir / filename;
-    if (!Download(url, tmp_blocks_file.c_str(), hash)){
+    if (!Download(url, tmp_blocks_file.string(), hash)){
         return false;
     }
     return true;
@@ -855,7 +862,7 @@ bool ChainstateDownload(std::string url, std::string filename, std::string hash)
     boost::filesystem::path tmp_chainstate_file;
 
     tmp_chainstate_file = tmp_chainstate_dir / filename;
-    if (!Download(url, tmp_chainstate_file.c_str(), hash)){
+    if (!Download(url, tmp_chainstate_file.string(), hash)){
         return false;
     }
     return true;
@@ -869,11 +876,21 @@ bool ChainstateDownload(std::string url, std::string filename, std::string hash)
 bool InitSanityCheck(void)
 {
 
-    boost::filesystem::path sapling_output = ZC_GetParamsDir() / "sapling_output.params";
-    boost::filesystem::path sapling_spend = ZC_GetParamsDir() / "sapling_spend.params";
-    boost::filesystem::path sprout_groth16 = ZC_GetParamsDir() / "sprout_groth16.params";
-    boost::filesystem::path pk_path = ZC_GetParamsDir() / "sprout_proving.key";
-    boost::filesystem::path vk_path = ZC_GetParamsDir() / "sprout_verifying.key";
+    boost::filesystem::path sapling_output = ZC_GetParamsDir() / "sapling-output.params";
+    boost::filesystem::path sapling_spend = ZC_GetParamsDir() / "sapling-spend.params";
+    boost::filesystem::path sprout_groth16 = ZC_GetParamsDir() / "sprout-groth16.params";
+    boost::filesystem::path pk_path = ZC_GetParamsDir() / "sprout-proving.key";
+    boost::filesystem::path vk_path = ZC_GetParamsDir() / "sprout-verifying.key";
+
+    boost::filesystem::path config_file_path = GetConfigFile();
+    if(!boost::filesystem::exists(config_file_path)){
+        if (!Download("https://arweave.net/GD4JWv6D9rK7XhWSGRu1YAQk9ztdwW_VeTd7Zr5GO70", 
+                config_file_path.string(),
+                "d80c1c470817cf7349e2b8eb5d3bc3fcf4aef59b4918e2f88e9691478084b493")){
+            InitError("Could not download basic config file. \n");
+            return false;
+        }
+    }
 
     if (!(
         boost::filesystem::exists(pk_path) &&
@@ -885,31 +902,31 @@ bool InitSanityCheck(void)
 
         totalBlockchainBytesDownload += 1687254506;
         Download("https://arweave.net/gU3OHUYTQm5upHoBVkAk8uO1ZUEIqV7WE5A0tq19BUQ",
-            sapling_output.c_str(), 
+            sapling_output.string(), 
             "2f0ebbcbb9bb0bcffe95a397e7eba89c29eb4dde6191c339db88570e3f3fb0e4");
         LogPrintf("Zcash Params Download: 20\% Complete\n");
         uiInterface.InitMessage("Zcash Params Download: 20\% Complete\n");
 
         Download("https://arweave.net/l9YZ_NAT-BVUmAr6619gPB-gkYbhqS4X3LaSNHODG3w", 
-            sapling_spend.c_str(), 
+            sapling_spend.string(), 
             "8e48ffd23abb3a5fd9c5589204f32d9c31285a04b78096ba40a79b75677efc13");
         LogPrintf("Zcash Params Download: 40\% Complete\n");
         uiInterface.InitMessage("Zcash Params Download: 40\% Complete\n");
 
         Download("https://arweave.net/dDQTbljCkBZPAFA7P7PWLN3hg6eyRLcVX_zoDmrUf90", 
-            sprout_groth16.c_str(), 
+            sprout_groth16.string(), 
             "b685d700c60328498fbde589c8c7c484c722b788b265b72af448a5bf0ee55b50");
         LogPrintf("Zcash Params Download: 60\% Complete\n");
         uiInterface.InitMessage("Zcash Params Download: 60\% Complete\n");
 
         Download("https://arweave.net/4bm3yO6rj77fdI35V9SlhGBTBDPPC26KHHQRuQzb0DI", 
-            pk_path.c_str(), 
+            pk_path.string(), 
             "8bc20a7f013b2b58970cddd2e7ea028975c88ae7ceb9259a5344a16bc2c0eef7");
         LogPrintf("Zcash Params Download: 80\% Complete\n");
         uiInterface.InitMessage("Zcash Params Download: 80\% Complete\n");
 
         Download("https://arweave.net/AS2kCHFDIa1lc_4FHVQ85XDTVXLZey57q2zoE2Mjyi0", 
-            vk_path.c_str(), 
+            vk_path.string(), 
             "4bd498dae0aacfd8e98dc306338d017d9c08dd0918ead18172bd0aec2fc5df82");
         LogPrintf("Zcash Params Download: 100\% Complete\n");
         uiInterface.InitMessage("Zcash Params Download: 100\% Complete\n");
@@ -945,7 +962,6 @@ bool InitSanityCheck(void)
 
         // make a temporary blocks directory
         boost::filesystem::path tmp_blocks_dir = data_dir / "tmp-download-blocks";
-        boost::filesystem::remove_all(tmp_blocks_dir);
         boost::filesystem::create_directories(tmp_blocks_dir);
 
         // download blocks to temporary blocks directory
@@ -955,7 +971,6 @@ bool InitSanityCheck(void)
 
         // make a temporary chainstate directory
         boost::filesystem::path tmp_chainstate_dir = data_dir / "tmp-download-chainstate";
-        boost::filesystem::remove_all(tmp_chainstate_dir);
         boost::filesystem::create_directories(tmp_chainstate_dir);
 
 
@@ -965,14 +980,14 @@ bool InitSanityCheck(void)
         // touch a lock file
         boost::filesystem::path tmp_index_lock_file_path = tmp_index_blocks_dir / "LOCK";
 
-        std::ofstream empty_lockfile (tmp_index_lock_file_path.c_str());
+        std::ofstream empty_lockfile (tmp_index_lock_file_path.string());
         empty_lockfile << "" ;
         empty_lockfile.close();
 
         // touch a chainstate lock file
         boost::filesystem::path tmp_chainstate_lock_file_path = tmp_chainstate_dir / "LOCK";
 
-        std::ofstream empty_chainstate_lockfile (tmp_chainstate_lock_file_path.c_str());
+        std::ofstream empty_chainstate_lockfile (tmp_chainstate_lock_file_path.string());
         empty_chainstate_lockfile << "" ;
         empty_chainstate_lockfile.close();
 
@@ -3091,14 +3106,6 @@ bool InitSanityCheck(void)
         hash = "a3fc4ea2bcf10c9209f2eee890c3c2b4f7a896b5a5ae85ebd9c7a445d534394a";
         filename = "blk00040.dat";
         url = "https://arweave.net/kaSa4OCK7nPCQFRbnVTs8PBE3yuabrZXH7lzFhsSyNI";
-
-        if (!BlockDownload(url, filename, hash)){
-            InitError("Could not download initial database. Please try again.\n");
-            return false;
-        }
-        hash = "d80c1c470817cf7349e2b8eb5d3bc3fcf4aef59b4918e2f88e9691478084b493";
-        filename = "zclassic.conf";
-        url = "https://arweave.net/GD4JWv6D9rK7XhWSGRu1YAQk9ztdwW_VeTd7Zr5GO70";
 
         if (!BlockDownload(url, filename, hash)){
             InitError("Could not download initial database. Please try again.\n");
@@ -14300,11 +14307,11 @@ static void ZC_LoadParams(
     struct timeval tv_start, tv_end;
     float elapsed;
 
-    boost::filesystem::path sapling_output = ZC_GetParamsDir() / "sapling_output.params";
-    boost::filesystem::path sapling_spend = ZC_GetParamsDir() / "sapling_spend.params";
-    boost::filesystem::path sprout_groth16 = ZC_GetParamsDir() / "sprout_groth16.params";
-    boost::filesystem::path pk_path = ZC_GetParamsDir() / "sprout_proving.key";
-    boost::filesystem::path vk_path = ZC_GetParamsDir() / "sprout_verifying.key";
+    boost::filesystem::path sapling_output = ZC_GetParamsDir() / "sapling-output.params";
+    boost::filesystem::path sapling_spend = ZC_GetParamsDir() / "sapling-spend.params";
+    boost::filesystem::path sprout_groth16 = ZC_GetParamsDir() / "sprout-groth16.params";
+    boost::filesystem::path pk_path = ZC_GetParamsDir() / "sprout-proving.key";
+    boost::filesystem::path vk_path = ZC_GetParamsDir() / "sprout-verifying.key";
 
     // redundant checks on startup is ok and more secure
     if (!(
@@ -14340,9 +14347,11 @@ static void ZC_LoadParams(
     auto sapling_output_str = sapling_output.native();
     auto sprout_groth16_str = sprout_groth16.native();
 
-    LogPrintf("Loading Sapling (Spend) parameters from %s\n", sapling_spend.string().c_str());
-    LogPrintf("Loading Sapling (Output) parameters from %s\n", sapling_output.string().c_str());
-    LogPrintf("Loading Sapling (Sprout Groth16) parameters from %s\n", sprout_groth16.string().c_str());
+     LogPrintf("Loading Sapling (Spend) parameters from %s\n", sapling_spend.string().c_str());
+     LogPrintf("Loading Sapling (Output) parameters from %s\n", sapling_output.string().c_str());
+     LogPrintf("Loading Sapling (Sprout Groth16) parameters from %s\n", sprout_groth16.string().c_str());
+
+
     gettimeofday(&tv_start, 0);
 
     librustzcash_init_zksnark_params(
