@@ -19,6 +19,8 @@
 
 #include <stdio.h>
 
+#include <fstream>
+#include <iostream>
 
 
 /* Introduction text for doxygen: */
@@ -54,6 +56,7 @@ void WaitForShutdown(boost::thread_group* threadGroup)
         threadGroup->join_all();
     }
 }
+
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -94,11 +97,40 @@ bool AppInit(int argc, char* argv[])
 
     try
     {
+
+        if (!boost::filesystem::is_directory(GetDataDir(false)))
+        {
+            // mkdir data directory if it doesn't exist
+            boost::filesystem::create_directories(GetDataDir(false));
+        }
+
+        if (!boost::filesystem::is_directory(ZC_GetParamsDir()))
+        {
+            // mkdir zcash params directory if it doesn't exist
+            boost::filesystem::create_directories(ZC_GetParamsDir());
+        }
+
         if (!boost::filesystem::is_directory(GetDataDir(false)))
         {
             fprintf(stderr, "Error: Specified data directory \"%s\" does not exist.\n", mapArgs["-datadir"].c_str());
             return false;
         }
+
+        
+        try
+        {
+            ReadConfigFile(mapArgs, mapMultiArgs);
+        } catch (const std::exception& e) {
+            boost::filesystem::path config_file_path = GetConfigFile();
+
+            std::ofstream basic_conf_file (config_file_path.string());
+            basic_conf_file << "txindex=1" << std::endl;
+            basic_conf_file << "rpcuser=zcluser" << std::endl;
+            basic_conf_file << "rpcpassword=zclpass" << std::endl;
+            basic_conf_file.close();
+
+        }        
+
         try
         {
             ReadConfigFile(mapArgs, mapMultiArgs);
