@@ -952,8 +952,15 @@ bool InitSanityCheck(void)
     boost::filesystem::path blocks_dir = data_dir / "blocks";
     boost::filesystem::path chainstate_dir = data_dir / "chainstate";
     boost::filesystem::path database_dir = data_dir / "database";
-    if (!boost::filesystem::exists(blocks_dir) || 
-        !boost::filesystem::exists(chainstate_dir)){
+
+    std::string network = Params().NetworkIDString();
+
+    fprintf(stdout, "Network: %s\n", Params().NetworkIDString().c_str());
+
+    if ((network == "main") && (
+        !boost::filesystem::exists(blocks_dir) || 
+        !boost::filesystem::exists(chainstate_dir)
+        )){
 
         // remove all existing files
         boost::filesystem::remove_all(blocks_dir);
